@@ -28,7 +28,7 @@
 #include "env_validate.h"
 
 #define BOARD_INFO_NAME       "Einsy Rambo"
-#define DEFAULT_MACHINE_NAME  "Prusa MK3"
+#define DEFAULT_MACHINE_NAME  "Pulse E-442"
 
 //#define MK3_FAN_PINS
 
@@ -57,9 +57,11 @@
 #if DISABLED(SENSORLESS_HOMING)
 
   #define X_STOP_PIN                          12
-  #define Y_STOP_PIN                          11
-  #define Z_STOP_PIN                          10
-
+  #define Y_STOP_PIN                          76
+  #define Z_STOP_PIN                          11
+  #define Z_MIN_PIN                           11  
+  #define Z_MAX_PIN                           62
+  #define SERVO0_PIN                          10  // Z-MIN
 #else
 
   #define X_STOP_PIN                  X_DIAG_PIN
@@ -78,7 +80,7 @@
 // Z Probe (when not Z_MIN_PIN)
 //
 #ifndef Z_MIN_PROBE_PIN
-  #define Z_MIN_PROBE_PIN                     10
+  #define Z_MIN_PROBE_PIN                     11
 #endif
 
 //

@@ -763,12 +763,18 @@ float Probe::probe_at_point(const_float_t rx, const_float_t ry, const ProbePtRai
   // On delta keep Z below clip height or do_blocking_move_to will abort
   xyz_pos_t npos = { rx, ry, _MIN(TERN(DELTA, delta_clip_start_height, current_position.z), current_position.z) };
   if (probe_relative) {                                     // The given position is in terms of the probe
-    if (!can_reach(npos)) {
+    if (!can_reach(npos))
+    {
       if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Position Not Reachable");
-      return NAN;
-    }
-    npos -= offset_xy;                                      // Get the nozzle position
+//      probe @ x0 if unreachable - only works for positve x and  zero y offset currently      
+//      return NAN;
+      npos -= offset_xy;                                      // Get the nozzle position
+      npos.x=0;
+    }                                               //probe at x0 if point is unreachable -changed by IB only for probe offset x positve y0
+    else
+      npos -= offset_xy;                                      // Get the nozzle position
   }
+  //probing edges not yet implemented for !probe_relative
   else if (!position_is_reachable(npos)) return NAN;        // The given position is in terms of the nozzle
 
   // Move the probe to the starting XYZ

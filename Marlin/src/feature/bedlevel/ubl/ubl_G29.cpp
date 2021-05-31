@@ -1292,8 +1292,9 @@ mesh_index_pair unified_bed_leveling::find_furthest_invalid_mesh_point() {
       // Also for round beds, there are grid points outside the bed the nozzle can't reach.
       // Prune them from the list and ignore them till the next Phase (manual nozzle probing).
 
-      if (!(d->probe_relative ? probe.can_reach(mpos) : position_is_reachable(mpos)))
-        return false;
+//      commented out by ibbr0 - don't cancel unreachable points
+//      if (!(d->probe_relative ? probe.can_reach(mpos) : position_is_reachable(mpos)))
+//        return false;
       d->closest.pos.set(i, j);
       return true;
     }
